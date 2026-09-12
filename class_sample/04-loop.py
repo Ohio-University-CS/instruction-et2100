@@ -70,15 +70,87 @@
 #     print(i)
 #     print("Welcome to Python!")
 
-for i in range(10, 2, -3): # [10, 7, 4]
-    print(i)
-    print("Welcome to Python!")
-
-
-
-
-
+# for i in range(10, 2, -3): # [10, 7, 4]
+#     print(i)
+#     print("Welcome to Python!")
 
 
 # for i in range(11, 1, -1):
 #     print(i)
+
+# for i in range(1, 7):
+#     for j in range(1, 7):
+#         print(i, j)
+
+# for i in range(1, 11):
+#     inner_loop_function()
+
+
+
+
+
+
+
+# line = ""
+# ""
+# "" + "11" => "11"
+# "11" + "," + "12" => "11,12"
+
+# # 11,12,13,14,15,16,
+# # 21,22,23,24,25,26,
+# # 31,32,33,34,35,36,
+# # 41,42,43,44,45,46,
+# # 51,52,53,54,55,56,
+# # 61,62,63,64,65,66,
+# line = ""
+# for i in range(1, 7):
+#     for j in range(1, 7):
+#         line = line + str(i) + str(j) + ","
+
+#     print(line)
+#     line = ""
+
+
+
+# # 11          
+# #   22        
+# #     33      
+# #       44    
+# #         55  
+# #           66
+
+# line = ""
+# for i in range(1, 7):
+#     for j in range(1, 7):
+#         if (i == j):
+#             # add the number
+#             line = line + str(i) + str(j)
+#         else:
+#             # add space
+#             line = line + "  "
+
+#     print(line)
+#     line = ""
+
+
+
+int / float
+string
+
+line = ""
+for i in range(1, 7):
+    for j in range(1, 7):
+        # if i is 1st row or 6th row
+        # we print entire thing of j
+        if (i == 1 or i == 6):
+            line = line + str(i) + str(j) + " "
+        # if i is not,
+        # print 1st and 6th of j    
+        else:
+            if (j == 1 or j == 6):
+                line = line + str(i) + str(j) + " "
+            else:
+                line = line + "   "
+
+    print(line)
+    line = ""

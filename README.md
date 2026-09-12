@@ -44,3 +44,12 @@ You only need to run `uv init` once for the project root. If the project is alre
 - Use `uv run` to execute Python files in the configured environment.
 - If you are opening someone else's project, run `uv sync` first to set up the environment.
 
+```
+cd .. # going back a level in folder
+cd xxx/ # going into subfolder xxx
+cd xxx/xxx/ # going into subfolder xxx of xxx
+pwd # show where you are currently
+## when running uv run, you need to always run at correct folder
+clear # clear all text in your terminal
+Ctrl + C # terminate whatever code is running
+```
