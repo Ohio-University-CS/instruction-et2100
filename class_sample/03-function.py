@@ -161,22 +161,32 @@
 
 # print(x, y)
 
-a = 1
-b = 2
-def test_two_out(a,b):
-    a = a + 1
-    b = b + 1
-    return a, b
+# a = 1
+# b = 2
+# def test_two_out(a,b):
+#     a = a + 1
+#     b = b + 1
+#     return a, b
 
-def test_two_out_1(_a,_b):
+# def test_two_out_1(_a,_b):
+#     a = _a + 1
+#     b = _b + 1
+
+# x, y = test_two_out(3, 4)
+# print(x, y)
+# x, y = test_two_out_1(3, 4) # None
+# print(x, y)
+# print(a, b)
+
+
+
+
+def test(_a):
+    # global c. # With global, c will be treated as a global variable, and the function will modify the global c instead of creating a new local variable.
     a = _a + 1
-    b = _b + 1
+    c = a
+    return a
 
-x, y = test_two_out(3, 4)
-print(x, y)
-x, y = test_two_out_1(3, 4) # None
-print(x, y)
-print(a, b)
-
-
-
+c = 4
+b = test(6)
+print(b, c)
