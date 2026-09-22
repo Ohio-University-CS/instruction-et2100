@@ -1,0 +1,87 @@
+# a = 6
+# a = 9
+# print(a)
+# b = ['hello', 5, 7, [1, 5]]
+# print(b)
+# print(b[0])
+# print(b[2])
+# b[2] = 23
+# print(b)
+# c = []
+
+# for x in range(5): 
+#     print(x)
+# for x in [0,1,2,3,4]: 
+#     print(x)
+
+# for x in [0,"hello",2,56,4]: 
+# # create variable x, loop through all value in the list after keyword "in"
+#     print(x)
+
+# b = ['hello', 5, 7, [1, 5]]
+# print(len(b))
+
+
+# friends = ['Joseph', 'Glenn', 'Sally']
+# print(list(range(len(friends))))
+# # print(list(range(3)))
+# # print(list([0,1,2]))
+# # print([0,1,2])
+# # => [0,1,2]
+
+
+# create a program to going through all value in [3,6,2,7]
+# then calculate the sum of them
+
+# new_list = [3, 6, 2, 7]
+# sum = 0
+# for item in new_list:
+#     sum = sum + item
+
+# print(sum)
+
+
+
+
+
+a = [3, 4, 5]
+# add value to list
+a.append(7) # [3, 4, 5, 7]
+# insert a value at given location, 1st value is location, 2nd value is value to insert
+a.insert(1, 2) # [3, 2, 4, 5, 7]
+# remove the FIRST matching vlaue in the list
+a.remove(3) # [2, 4, 5, 7]
+# pop remove last index value in the list
+a.pop() # [2, 4, 5]
+# pop(index) remove the value at given index location
+a.pop(1) # [2, 5]
+# remove all value in the list
+a.clear() # []
+print(a)
+
+b = [3, 8, 2, 10, 5, 8]
+# sort all value in increasing order
+b.sort() # [2, 3, 5, 8, 8, 10]
+# sort all value in decreasing order
+b.reverse() # [10, 8, 8, 5, 3, 2]
+# getting length of list
+len(b) # 6
+print(b)
+# getting a sub list within defined range
+print(b[1:3]) # [8, 8]
+
+# define a empty list
+x = list()
+x = []
+
+# get max number of list
+max(b)
+# get min num of list
+min(b)
+# add up all number
+sum(b)
+
+# with string, xx.split() can split string with spaces into list
+# with xx.split('y'), can split string with 'y' into list
+a = 'first;second;third'
+print(a.split(';'))
