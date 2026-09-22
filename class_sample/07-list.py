@@ -85,3 +85,27 @@ sum(b)
 # with xx.split('y'), can split string with 'y' into list
 a = 'first;second;third'
 print(a.split(';'))
+
+
+
+#       3.         6.    9. 
+PKG1001 | Columbus | 4.5 | DELIVERED
+xxx.find("|")
+3,6, 9
+float(xxx[6+1:9])
+
+
+id=xxx[:"num of first '|'"]
+line = id + xx + xx
+xxx.write(line)
+
+
+
+
+friends = ['Joseph', 'Glenn', 'Sally']
+print(list(range(len(friends))))
+
+len_num = len(friends)
+range_list = range(len_num)
+friend_range_list = list(range_list)
+print(friend_range_list)
