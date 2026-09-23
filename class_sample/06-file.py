@@ -12,8 +12,8 @@
 # print("---") 
 
 
-# xfile = open('class_sample/mbox.txt') # relative path, showing how to open a file from where you running it
-# # xfile = open('/Users/cricel/Documents/GitHub/instruction-et2100/class_sample/mbox.txt') #absolute path, showing how to open a file no matter where you are running it
+# xfile = open('class_sample/06-file.txt') # relative path, showing how to open a file from where you running it
+# # xfile = open('/Users/cricel/Documents/GitHub/instruction-et2100/class_sample/06-file.txt') #absolute path, showing how to open a file no matter where you are running it
 # count = 0
 # for cheese in xfile:
 #     count = count + 1
@@ -26,13 +26,13 @@
 
 
 
-# xfile = open('class_sample/mbox.txt')
+# xfile = open('class_sample/06-file.txt')
 # inp = xfile.read()
 # print(inp)
 # print(inp[:20])
 
 
-# xfile = open('class_sample/mbox.txt')
+# xfile = open('class_sample/06-file.txt')
 # for line in xfile:
 #     line = line.rstrip()
 #     if line.startswith('w'):
@@ -47,7 +47,7 @@
 # then merge every 2 line into 1 line
 # and print out
 
-# rfile = open('class_sample/mbox.txt', 'r')
+# rfile = open('class_sample/06-file.txt', 'r')
 # count = 1
 # prev_line = ""
 # for line in rfile:
@@ -68,7 +68,7 @@
 #     # print(line)
 
 
-# xfile = open('class_sample/mbox.txt', 'r')
+# xfile = open('class_sample/06-file.txt', 'r')
 
 # inp = xfile.read()
 # print(inp)
@@ -76,7 +76,7 @@
 # xfile.close()  # close the file after reading it
 
 #### Write files
-# xfile = open('class_sample/mbox_1w.txt', 'w')
+# xfile = open('class_sample/06-file_1w.txt', 'w')
 
 # xfile.write("Hello, World!")
 
@@ -85,8 +85,8 @@
 
 
 
-rfile = open('class_sample/mbox.txt', 'r')
-wfile = open('class_sample/mbox_new.txt', 'w')
+rfile = open('class_sample/06-file.txt', 'r')
+wfile = open('class_sample/06-file_new.txt', 'w')
 count = 1
 prev_line = ""
 for line in rfile:
