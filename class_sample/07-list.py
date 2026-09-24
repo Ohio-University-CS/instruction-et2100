@@ -58,6 +58,7 @@
 # # remove all value in the list
 # a.clear() # []
 # print(a)
+# xxx.index(value) # find the index of this value in the list
 
 # b = [3, 8, 2, 10, 5, 8]
 # # sort all value in increasing order
@@ -148,27 +149,86 @@
 # item_name = ['xx', 'yy', 'zz']
 # price = [1.5, 5, 2]
 
-item = []
-price = []
+# item = []
+# price = []
 
-count = 1
-while True:
-    single_item_name = input("Enter a Item Name: ")
-    single_item_price = input("Enter price for that item: ")
-    item.append(single_item_name)
-    price.append(float(single_item_price))
-    finish = input("Finish? ")
-    if(finish == "yes"):
-        if(count > 5):
-            break
+# count = 1
+# ## add a way to allow user to remove a item in the menu, which maens also 
+# # include corresponding price
+
+# while True:
+#     single_item_name = input("Enter a Item Name: ")
+#     single_item_price = input("Enter price for that item: ")
+#     item.append(single_item_name)
+#     price.append(float(single_item_price))
+#     operation = input("Finish(f), remove(r), nothing(n): ")
+#     if(operation == "f"):
+#         if(count > 5):
+#             break
+#         else:
+#             print("you need to enter more items")
+#     elif(operation == "r"):
+#         print("Before: ", item, price)
+#         remove_item_name = input("Enter item want to remove: ")
+
+#         # xxx.index(value) # find the index of this value in the list
+#         index = 0
+#         for _item in item:
+#             if _item == remove_item_name:
+#                 break
+#             else:
+#                 index = index + 1
+#         item.pop(index)
+#         price.pop(index)
+
+#         print("After: ", item, price)
+
+#     count = count + 1
+# print(item)
+# print(price)
+
+# # final_price = 0
+# # for single_price in price:
+# #     final_price = final_price + single_price
+# print("total price of entire menu", sum(price))
+
+
+# a = [1,2,3,4]
+# b = [
+#     [1,2,3],
+#     [4,5,6],
+#     [7,8,9]
+# ]
+# b = [[1,2,3], [4,5,6], [7,8,9]]
+
+table = []
+for i in range(5):
+    row = []
+    for j in range(5):
+        if (i == 0 or i == 4):
+            row.append("*")
         else:
-            print("you need to enter more items")
+            if (j == 0 or j == 4):
+                row.append("*")
+            else:
+                row.append(" ")
+        # row.append(j)
+    table.append(row)
 
-    count = count + 1
-print(item)
-print(price)
+print(table)
 
-# final_price = 0
-# for single_price in price:
-#     final_price = final_price + single_price
-print("total price of entire menu", sum(price))
+# *****
+# *   *
+# *   *
+# *   *
+# *****
+
+
+# table = []
+# for i in range(5):
+#     row = []
+#     for j in range(5):
+#         row.append("*")
+#     table.append(row)
+
+# print(table)
