@@ -44,68 +44,131 @@
 
 
 
-a = [3, 4, 5]
-# add value to list
-a.append(7) # [3, 4, 5, 7]
-# insert a value at given location, 1st value is location, 2nd value is value to insert
-a.insert(1, 2) # [3, 2, 4, 5, 7]
-# remove the FIRST matching vlaue in the list
-a.remove(3) # [2, 4, 5, 7]
-# pop remove last index value in the list
-a.pop() # [2, 4, 5]
-# pop(index) remove the value at given index location
-a.pop(1) # [2, 5]
-# remove all value in the list
-a.clear() # []
-print(a)
+# a = [3, 4, 5]
+# # add value to list
+# a.append(7) # [3, 4, 5, 7]
+# # insert a value at given location, 1st value is location, 2nd value is value to insert
+# a.insert(1, 2) # [3, 2, 4, 5, 7]
+# # remove the FIRST matching vlaue in the list
+# a.remove(3) # [2, 4, 5, 7]
+# # pop remove last index value in the list
+# a.pop() # [2, 4, 5]
+# # pop(index) remove the value at given index location
+# a.pop(1) # [2, 5]
+# # remove all value in the list
+# a.clear() # []
+# print(a)
 
-b = [3, 8, 2, 10, 5, 8]
-# sort all value in increasing order
-b.sort() # [2, 3, 5, 8, 8, 10]
-# sort all value in decreasing order
-b.reverse() # [10, 8, 8, 5, 3, 2]
-# getting length of list
-len(b) # 6
-print(b)
-# getting a sub list within defined range
-print(b[1:3]) # [8, 8]
+# b = [3, 8, 2, 10, 5, 8]
+# # sort all value in increasing order
+# b.sort() # [2, 3, 5, 8, 8, 10]
+# # sort all value in decreasing order
+# b.reverse() # [10, 8, 8, 5, 3, 2]
+# # getting length of list
+# len(b) # 6
+# print(b)
+# # getting a sub list within defined range
+# print(b[1:3]) # [8, 8]
 
-# define a empty list
-x = list()
-x = []
+# # define a empty list
+# x = list()
+# x = []
 
-# get max number of list
-max(b)
-# get min num of list
-min(b)
-# add up all number
-sum(b)
+# # get max number of list
+# max(b)
+# # get min num of list
+# min(b)
+# # add up all number
+# sum(b)
 
-# with string, xx.split() can split string with spaces into list
-# with xx.split('y'), can split string with 'y' into list
-a = 'first;second;third'
-print(a.split(';'))
-
-
-
-#       3.         6.    9. 
-PKG1001 | Columbus | 4.5 | DELIVERED
-xxx.find("|")
-3,6, 9
-float(xxx[6+1:9])
-
-
-id=xxx[:"num of first '|'"]
-line = id + xx + xx
-xxx.write(line)
+# # with string, xx.split() can split string with spaces into list
+# # with xx.split('y'), can split string with 'y' into list
+# a = 'first;second;third'
+# print(a.split(';'))
 
 
 
+# #       3.         6.    9. 
+# PKG1001 | Columbus | 4.5 | DELIVERED
+# xxx.find("|")
+# 3,6, 9
+# float(xxx[6+1:9])
 
-friends = ['Joseph', 'Glenn', 'Sally']
-print(list(range(len(friends))))
 
-len_num = len(friends)
-range_list = range(len_num)
-friend_range_list = list(range_list)
-print(friend_range_list)
+# id=xxx[:"num of first '|'"]
+# line = id + xx + xx
+# xxx.write(line)
+
+
+
+
+# friends = ['Joseph', 'Glenn', 'Sally']
+# print(list(range(len(friends))))
+
+# len_num = len(friends)
+# range_list = range(len_num)
+# friend_range_list = list(range_list)
+# print(friend_range_list)
+
+
+
+
+
+# # # use concept of list, think about how you can make the shape below
+# # *****
+# # *   *
+# # *   *
+# # *   *
+# # *****
+
+# line = []
+# for i in range(5):
+#     for j in range(5):
+#         if (i == 0 or i == 4):
+#             line.append("*")
+#         else:
+#             if (j == 0 or j == 4):
+#                 line.append("*")
+#             else:
+#                 line.append(" ")
+#     # print(line)
+#     line_str = ""
+#     for item in line:
+#         line_str = line_str + item
+#     print(line_str)
+#     line.clear()
+
+
+# you are asking to design a menu,
+# ask user to define what is the name of each item
+# and corresponding price to that item
+# a menu should have more than 5 items
+# once done, calculate what is total price
+# if someone order the entire menu
+# item_name = ['xx', 'yy', 'zz']
+# price = [1.5, 5, 2]
+
+item = []
+price = []
+
+count = 1
+while True:
+    single_item_name = input("Enter a Item Name: ")
+    single_item_price = input("Enter price for that item: ")
+    item.append(single_item_name)
+    price.append(float(single_item_price))
+    finish = input("Finish? ")
+    if(finish == "yes"):
+        if(count > 5):
+            break
+        else:
+            print("you need to enter more items")
+
+    count = count + 1
+print(item)
+print(price)
+
+# final_price = 0
+# for single_price in price:
+#     final_price = final_price + single_price
+print("total price of entire menu", sum(price))
