@@ -33,3 +33,10 @@ for student in students:
     if student["grade"] >= 90:
         print(student)
 
+
+## you are ask to create a food menu system 
+# where you ask user to input the food name and price
+# then store it into a json file
+# after store couple of food, you gonna ask to 
+# update all the food price >= 15 become whatever their price * 0.9
+
