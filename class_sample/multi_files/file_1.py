@@ -1,12 +1,12 @@
-# xyz = 100
+xyz = 100
 
-# def say_hello():
-#     print("Hello from file_1.py")
+def say_hello():
+    print("Hello from file_1.py")
 
-# class test:
-#     pass
+class test:
+    pass
 
-# ll = list()
+ll = list()
 
 
 class Student:

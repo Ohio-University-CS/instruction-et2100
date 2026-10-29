@@ -20,6 +20,7 @@
 # # where you create 2 student with that class
 # # and get their info, and print out
 
+from file_1 import Student
 
 import file_1
 
