@@ -123,6 +123,11 @@ def get_key():
         key = sys.stdin.read(1)
     finally:
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+
+    # In raw mode, Ctrl+C arrives as \x03 instead of KeyboardInterrupt
+    if key == "\x03":
+        raise KeyboardInterrupt
+
     return key.lower()
 
 
@@ -148,7 +153,7 @@ def intro():
     print()
 
     print(Fore.YELLOW + "Look for a . opening in the # wall — that is the entry / exit.")
-    print(Fore.YELLOW + "Use W A S D to move (no Enter needed). Press Q to quit.")
+    print(Fore.YELLOW + "Use W A S D to move (no Enter needed). Press Q or Ctrl+C to quit.")
     input(Fore.WHITE + "Press ENTER to begin your journey...")
     print()
 
@@ -202,7 +207,7 @@ def draw_map():
         + Fore.LIGHTCYAN_EX + "." + Fore.WHITE + " Entry/Exit"
     )
     print()
-    print(Fore.WHITE + "Controls: W=Up  S=Down  A=Left  D=Right  Q=Quit")
+    print(Fore.WHITE + "Controls: W=Up  S=Down  A=Left  D=Right  Q / Ctrl+C=Quit")
 
     if status_message:
         print()
@@ -285,30 +290,39 @@ def try_move(d_row, d_col):
 # Main game loop
 # ----------------------------
 
+def quit_game():
+    clear_screen()
+    print(Fore.CYAN + "Thanks for playing! Farewell, adventurer.")
+
+
 def game():
-    intro()
+    try:
+        intro()
 
-    while True:
-        draw_map()
+        while True:
+            draw_map()
+            print()
+            print(Fore.CYAN + "Press W/A/S/D to move..." + Style.RESET_ALL)
+
+            move = get_key()
+
+            if move == "w":
+                try_move(-1, 0)
+            elif move == "s":
+                try_move(1, 0)
+            elif move == "a":
+                try_move(0, -1)
+            elif move == "d":
+                try_move(0, 1)
+            elif move == "q":
+                quit_game()
+                break
+            else:
+                set_status(Fore.RED + "Invalid key. Use W, A, S, D, or Q.")
+
+    except KeyboardInterrupt:
         print()
-        print(Fore.CYAN + "Press W/A/S/D to move..." + Style.RESET_ALL)
-
-        move = get_key()
-
-        if move == "w":
-            try_move(-1, 0)
-        elif move == "s":
-            try_move(1, 0)
-        elif move == "a":
-            try_move(0, -1)
-        elif move == "d":
-            try_move(0, 1)
-        elif move == "q":
-            clear_screen()
-            print(Fore.CYAN + "Thanks for playing! Farewell, adventurer.")
-            break
-        else:
-            set_status(Fore.RED + "Invalid key. Use W, A, S, D, or Q.")
+        quit_game()
 
 
 if __name__ == "__main__":
