@@ -1,11 +1,15 @@
 """
 Terminal RPG Map Demo
-- WASD to walk, Q to quit
+- WASD to walk (instant keypress — no Enter needed), Q to quit
 - Obstacles block movement
 - Walking onto monsters / NPCs / items shows an encounter message
 - Two maps linked by a . gap in the wall (entry / exit)
 - Requires: pip install colorama
 """
+
+import sys
+import termios
+import tty
 
 from colorama import Fore, Style, init
 
@@ -102,6 +106,25 @@ COLS = len(game_map[0])
 player_row = 1
 player_col = 1
 
+# Message shown under the map (no Enter required)
+status_message = ""
+
+
+# ----------------------------
+# Instant keypress (no Enter)
+# ----------------------------
+
+def get_key():
+    """Read one key as soon as it is pressed (no Enter needed)."""
+    fd = sys.stdin.fileno()
+    old_settings = termios.tcgetattr(fd)
+    try:
+        tty.setraw(fd)
+        key = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return key.lower()
+
 
 # ----------------------------
 # Intro story
@@ -125,7 +148,7 @@ def intro():
     print()
 
     print(Fore.YELLOW + "Look for a . opening in the # wall — that is the entry / exit.")
-    print(Fore.YELLOW + "Use W A S D to move. Press Q to quit.")
+    print(Fore.YELLOW + "Use W A S D to move (no Enter needed). Press Q to quit.")
     input(Fore.WHITE + "Press ENTER to begin your journey...")
     print()
 
@@ -135,7 +158,8 @@ def intro():
 # ----------------------------
 
 def clear_screen():
-    print("\n" * 40)
+    # ANSI clear — works better with instant keypress redraws
+    print("\033[2J\033[H", end="")
 
 
 def draw_map():
@@ -180,15 +204,21 @@ def draw_map():
     print()
     print(Fore.WHITE + "Controls: W=Up  S=Down  A=Left  D=Right  Q=Quit")
 
+    if status_message:
+        print()
+        print(status_message)
+
+
+def set_status(message):
+    global status_message
+    status_message = message
+
 
 def show_encounter(tile):
     if tile in ENCOUNTERS:
         name = ENCOUNTERS[tile]
         color = COLORS.get(tile, Fore.WHITE)
-        print()
-        print(color + Style.BRIGHT + f"You just encounter {name}")
-        print()
-        input(Fore.WHITE + "Press ENTER to continue...")
+        set_status(color + Style.BRIGHT + f"You just encounter {name}")
 
 
 def switch_map(dest_map, spawn_row, spawn_col):
@@ -203,11 +233,11 @@ def switch_map(dest_map, spawn_row, spawn_col):
     player_col = spawn_col
 
     title = MAPS[current_map]["title"]
-    print()
-    print(Fore.LIGHTCYAN_EX + Style.BRIGHT + f"You pass through the opening...")
-    print(Fore.LIGHTCYAN_EX + Style.BRIGHT + f"Welcome to the {title}!")
-    print()
-    input(Fore.WHITE + "Press ENTER to continue...")
+    set_status(
+        Fore.LIGHTCYAN_EX
+        + Style.BRIGHT
+        + f"You pass through the opening... Welcome to the {title}!"
+    )
 
 
 # ----------------------------
@@ -229,11 +259,11 @@ def try_move(d_row, d_col):
 
     # Blocked by obstacle
     if tile in OBSTACLES:
-        print()
-        print(Fore.RED + "You cannot walk through that obstacle!")
-        print()
-        input(Fore.WHITE + "Press ENTER to continue...")
+        set_status(Fore.RED + "You cannot walk through that obstacle!")
         return False
+
+    # Clear old status when a normal move succeeds
+    set_status("")
 
     # Move onto the tile
     player_row = new_row
@@ -260,8 +290,10 @@ def game():
 
     while True:
         draw_map()
+        print()
+        print(Fore.CYAN + "Press W/A/S/D to move..." + Style.RESET_ALL)
 
-        move = input(Fore.CYAN + "Move: " + Style.RESET_ALL).lower().strip()
+        move = get_key()
 
         if move == "w":
             try_move(-1, 0)
@@ -272,14 +304,11 @@ def game():
         elif move == "d":
             try_move(0, 1)
         elif move == "q":
-            print()
+            clear_screen()
             print(Fore.CYAN + "Thanks for playing! Farewell, adventurer.")
             break
         else:
-            print()
-            print(Fore.RED + "Invalid key. Use W, A, S, D, or Q.")
-            print()
-            input(Fore.WHITE + "Press ENTER to continue...")
+            set_status(Fore.RED + "Invalid key. Use W, A, S, D, or Q.")
 
 
 if __name__ == "__main__":
