@@ -18,36 +18,59 @@ init(autoreset=True)
 # ----------------------------
 # Map legend
 # ----------------------------
-# @  player
-# #  wall (obstacle — cannot walk through)
-# T  tree (obstacle — cannot walk through)
-# R  rock (obstacle — cannot walk through)
-# M  monster
-# N  NPC
-# C  chest
-# .  empty ground  (a . in the outer wall is an entry / exit)
+# Maps below still use simple letters (T/M/N/C/R) so they are easy to edit.
+# At load time those letters are swapped for single-codepoint emoji
+# (no ZWJ sequences that split into extra characters).
+#
+# 👤  player
+# 🌲  tree   (obstacle)
+# 🗿  rock   (obstacle)
+# 👹  monster
+# 🧙  NPC
+# 📦  chest
+# #   wall   (obstacle)
+# .   empty ground  (a . in the outer wall is an entry / exit)
+
+PLAYER = "👤"
+TREE = "🌲"
+ROCK = "🗿"
+MONSTER = "👹"
+NPC = "🧙"
+CHEST = "📦"
+
+# Letter in the map string -> emoji used in the game
+TILE_FROM_LETTER = {
+    "T": TREE,
+    "R": ROCK,
+    "M": MONSTER,
+    "N": NPC,
+    "C": CHEST,
+}
+
+# Emoji tiles are ~2 terminal columns — do not add a trailing space after them
+EMOJI_TILES = {PLAYER, TREE, ROCK, MONSTER, NPC, CHEST}
 
 # Colors for each tile type
 COLORS = {
-    "@": Fore.CYAN,
+    PLAYER: Fore.CYAN,
     "#": Fore.WHITE,
-    "T": Fore.GREEN,
-    "R": Fore.LIGHTBLACK_EX,
-    "M": Fore.RED,
-    "N": Fore.YELLOW,
-    "C": Fore.MAGENTA,
+    TREE: Fore.GREEN,
+    ROCK: Fore.LIGHTBLACK_EX,
+    MONSTER: Fore.RED,
+    NPC: Fore.YELLOW,
+    CHEST: Fore.MAGENTA,
     ".": Fore.LIGHTBLACK_EX,
 }
 
 # Human-readable names for encounter messages
 ENCOUNTERS = {
-    "M": "a fierce Monster!",
-    "N": "a friendly NPC.",
-    "C": "a mysterious Treasure Chest!",
+    MONSTER: "a fierce Monster!",
+    NPC: "a friendly NPC.",
+    CHEST: "a mysterious Treasure Chest!",
 }
 
 # Tiles the player cannot walk onto
-OBSTACLES = {"#", "T", "R"}
+OBSTACLES = {"#", TREE, ROCK}
 
 # ----------------------------
 # Two maps
@@ -96,9 +119,17 @@ PORTALS = {
     ("cave", 5, 0): ("forest", 5, 18),    # leave cave left side -> appear in forest
 }
 
+def load_tiles(raw_tiles):
+    """Turn map letters (T/M/N/C/R) into emoji; leave # and . alone."""
+    rows = []
+    for row in raw_tiles:
+        rows.append([TILE_FROM_LETTER.get(ch, ch) for ch in row])
+    return rows
+
+
 # Current map state
 current_map = "forest"
-game_map = [list(row) for row in MAPS[current_map]["tiles"]]
+game_map = load_tiles(MAPS[current_map]["tiles"])
 ROWS = len(game_map)
 COLS = len(game_map[0])
 
@@ -178,7 +209,7 @@ def draw_map():
         line = ""
         for col in range(COLS):
             if row == player_row and col == player_col:
-                tile = "@"
+                tile = PLAYER
             else:
                 tile = game_map[row][col]
 
@@ -186,23 +217,29 @@ def draw_map():
             if (current_map, row, col) in PORTALS and not (
                 row == player_row and col == player_col
             ):
-                line += Fore.LIGHTCYAN_EX + Style.BRIGHT + tile + " "
+                color = Fore.LIGHTCYAN_EX + Style.BRIGHT
             else:
                 color = COLORS.get(tile, Fore.WHITE)
+
+            # ASCII tiles are "X " (2 cols). Emoji is already ~2 cols,
+            # so skip the trailing space or the row becomes too wide.
+            if tile in EMOJI_TILES:
+                line += color + tile
+            else:
                 line += color + tile + " "
         print(line)
 
     print()
     print(Fore.WHITE + "Legend:")
     print(
-        Fore.CYAN + "@" + Fore.WHITE + " You   "
-        + Fore.RED + "M" + Fore.WHITE + " Monster   "
-        + Fore.YELLOW + "N" + Fore.WHITE + " NPC   "
-        + Fore.MAGENTA + "C" + Fore.WHITE + " Chest"
+        Fore.CYAN + PLAYER + Fore.WHITE + " You   "
+        + Fore.RED + MONSTER + Fore.WHITE + " Monster   "
+        + Fore.YELLOW + NPC + Fore.WHITE + " NPC   "
+        + Fore.MAGENTA + CHEST + Fore.WHITE + " Chest"
     )
     print(
-        Fore.GREEN + "T" + Fore.WHITE + " Tree   "
-        + Fore.LIGHTBLACK_EX + "R" + Fore.WHITE + " Rock   "
+        Fore.GREEN + TREE + Fore.WHITE + " Tree   "
+        + Fore.LIGHTBLACK_EX + ROCK + Fore.WHITE + " Rock   "
         + Fore.WHITE + "# Wall   "
         + Fore.LIGHTCYAN_EX + "." + Fore.WHITE + " Entry/Exit"
     )
@@ -231,7 +268,7 @@ def switch_map(dest_map, spawn_row, spawn_col):
     global current_map, game_map, ROWS, COLS, player_row, player_col
 
     current_map = dest_map
-    game_map = [list(row) for row in MAPS[current_map]["tiles"]]
+    game_map = load_tiles(MAPS[current_map]["tiles"])
     ROWS = len(game_map)
     COLS = len(game_map[0])
     player_row = spawn_row
