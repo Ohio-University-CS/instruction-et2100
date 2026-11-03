@@ -1,3 +1,4 @@
+# POST request
 # api url
 # https://api.jarvisclaw.ai/v1/chat/completions
 
@@ -12,3 +13,15 @@
 #   ],
 #   "stream": false
 # }
+
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.get("/hello")
+def hello():
+    return {"message": "Hello!"}
+
+app.run(debug=True)
+
