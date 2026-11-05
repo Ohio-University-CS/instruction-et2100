@@ -58,48 +58,4 @@ def delete_student(id):
 
 app.run(debug=True)
 
-
-
-
-
-
-# from flask import Flask, request, jsonify
-
-# app = Flask(__name__)
-
-# # Simple in-memory database
-# students = {
-#     1: {"name": "Alice", "age": 20},
-#     2: {"name": "Bob", "age": 22}
-# }
-
-# # GET - Read all students
-# @app.route("/students", methods=["GET"])
-# def get_students():
-#     return jsonify(students)
-
-# # POST - Create a student
-# @app.route("/students/<int:id>", methods=["POST"])
-# def create_student(id):
-#     students[id] = request.json
-#     return jsonify(students[id]), 201
-
-# # PUT - Replace a student
-# @app.route("/students/<int:id>", methods=["PUT"])
-# def replace_student(id):
-#     students[id] = request.json
-#     return jsonify(students[id])
-
-# # PATCH - Update part of a student
-# @app.route("/students/<int:id>", methods=["PATCH"])
-# def update_student(id):
-#     students[id].update(request.json)
-#     return jsonify(students[id])
-
-# # DELETE - Delete a student
-# @app.route("/students/<int:id>", methods=["DELETE"])
-# def delete_student(id):
-#     students.pop(id, None)
-#     return jsonify({"message": "Deleted"})
-
-# app.run(debug=True)
+# using tinydb library, to actually store and update data in database
