@@ -45,6 +45,17 @@ def create_student():
     students_dict[id_counter] = request.json
     return jsonify(students_dict)
 
+@app.route("/students/<int:id>", methods=["PATCH"])
+def update_student(id):
+    students_dict[id].update(request.json)
+    return jsonify(students_dict)
+
+@app.route("/students/<int:id>", methods=["DELETE"])
+def delete_student(id):
+    students_dict.pop(id, None)
+    # return jsonify({"message": "Deleted"})
+    return jsonify(students_dict)
+
 app.run(debug=True)
 
 
