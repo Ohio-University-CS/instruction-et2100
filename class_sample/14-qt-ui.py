@@ -2,6 +2,10 @@
 # https://www.riverbankcomputing.com/static/Docs/PyQt6/
 # Use QT Designer
 # uvx --from pyside6-essentials pyside6-designer
+# if you run into error about application block on windows, run below instead
+# go to smart app control and turn it OFF
+
+
 
 import sys
 from pathlib import Path
