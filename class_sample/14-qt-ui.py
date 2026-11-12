@@ -6,6 +6,25 @@
 # go to smart app control and turn it OFF
 
 
+# use QT designer to design a application UI
+# with a input that take people's text, 
+# then a button to click in order to submit that input
+# and a label somewhere says "done" when button clicked
+
+
+# have 2 input box, one for username and one for password
+# when click on button, it should display the username and password is correct or not
+# (username: admin, password: admin)
+# have 2 feedback text, where one display login status and one display username
+
+
+
+
+
+
+
+
+
 
 import sys
 from pathlib import Path
@@ -19,15 +38,16 @@ class TextDisplayApp(QWidget):
         super().__init__()
 
         # Load the window and widgets created in Qt Designer.
-        ui_file = Path(__file__).with_name("test.ui")
+        ui_file = Path(__file__).with_name("class_demo.ui")
         uic.loadUi(ui_file, self)
 
         # Run display_text when the user clicks the button.
-        self.pushButton.clicked.connect(self.display_text)
+        self.submit_button.clicked.connect(self.display_text)
 
     def display_text(self):
         # Read the input field and show its text in the label.
-        self.label.setText(self.textEdit.toPlainText())
+        # self.feedback_text.setText("done")
+        self.feedback_text.setText(self.username_input.text())
 
 
 if __name__ == "__main__":
