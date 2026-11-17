@@ -26,6 +26,40 @@
 
 
 
+# import sys
+# from pathlib import Path
+
+# from PyQt6 import uic
+# from PyQt6.QtWidgets import QApplication, QWidget
+
+
+# class TextDisplayApp(QWidget):
+#     def __init__(self):
+#         super().__init__()
+
+#         # Load the window and widgets created in Qt Designer.
+#         ui_file = Path(__file__).with_name("class_demo.ui")
+#         uic.loadUi(ui_file, self)
+
+#         # Run display_text when the user clicks the button.
+#         self.submit_button.clicked.connect(self.display_text)
+
+#     def display_text(self):
+#         # Read the input field and show its text in the label.
+#         # self.feedback_text.setText("done")
+#         self.feedback_text.setText(self.username_input.text())
+
+
+# if __name__ == "__main__":
+#     # Create the Qt application and display the window.
+#     app = QApplication(sys.argv)
+#     window = TextDisplayApp()
+#     window.show()
+#     sys.exit(app.exec())
+
+
+
+
 import sys
 from pathlib import Path
 
@@ -47,7 +81,11 @@ class TextDisplayApp(QWidget):
     def display_text(self):
         # Read the input field and show its text in the label.
         # self.feedback_text.setText("done")
-        self.feedback_text.setText(self.username_input.text())
+        self.username_text.setText(self.username_input.text())
+        if (self.username_input.text() == "admin" and self.password_input.text() == "admin"):
+            self.feedback_text.setText("Login successful")
+        else:
+            self.feedback_text.setText("Login failed")
 
 
 if __name__ == "__main__":
