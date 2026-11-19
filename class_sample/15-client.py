@@ -14,3 +14,8 @@ print("POST:", response.json())
 # GET again: Verify new value
 response = requests.get(url)
 print("GET again:", response.json())
+
+# if the value is greater than 50, change it to 50
+if (response.json()["value"] >= 50):
+    response = requests.post(url, json={"value": 50})
+    print("POST:", response.json())
